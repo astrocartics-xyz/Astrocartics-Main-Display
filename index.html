@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>Astrocartics: Definitive Eve Online Heatmap</title>
+	<link rel="stylesheet" href="styles/main.css">
+	<!-- Import map for Three JS and other files-->
+        <script type="importmap">
+		{
+			"imports": {
+				"three": "https://cdn.jsdelivr.net/npm/three@0.156.1/build/three.module.js",
+				"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.156.1/examples/jsm/"
+			}
+		}
+	</script>
+	<!-- Get main script -->
+        <script type="module" src="scripts/main.js"></script>
+</head>
+
+<body>
+	<!-- Navigation Bar -->
+	<nav id="top-bar">
+		<!-- Region Information Button -->
+		<button id="info-btn" class="bar-btn" aria-label="Information">
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<circle cx="12" cy="12" r="10"></circle>
+				<line x1="12" y1="16" x2="12" y2="12"></line>
+				<line x1="12" y1="8" x2="12.01" y2="8"></line>
+			</svg>
+		</button>
+		<!-- Loading, unless found name -->
+		<div id="region-header">Loading</div>
+		<!-- Search Button -->
+		<button id="search-toggle-btn" class="bar-btn hidden" aria-label="Search">
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<circle cx="11" cy="11" r="8"></circle>
+				<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+			</svg>
+		</button>
+	</nav>
+	<!-- Search Spinner -->
+	<div id="labels-container"></div>
+	<div id="loading-section" class="loading-section">
+			<div class="loading-content">
+				<div class="loading-spinner"></div>
+				<div id="loading-message">Loading</div>
+				<div id="loading-progress"></div>
+			</div>
+	</div>
+	<!-- Map Scene -->
+	<div id="scene-container" class="hidden"></div>
+	<!-- Search Container -->
+	<div id="search-panel" class="search-panel hidden">
+		<h3>Search for a Region</h3>
+		<input type="text" id="search-input" placeholder="e.g., 'The Forge'">
+		<button id="search-btn" class="primary-btn">Search</button>
+	</div>
+	<!-- Top Regions Ranking -->
+	<footer id="top-regions-footer">
+		<div id="top-regions-list">
+			<span class="top-region-label">
+				<a href="https://zkillboard.com/alliance/99013211/" target="_blank" rel="noopener noreferrer">Sponsored by Hysterical Friends</a>
+				Most Violent Past Hour:
+			</span>
+			<span id="top-regions-loading">Loading...</span>
+		</div>
+	</footer>
+</body>
+</html>
