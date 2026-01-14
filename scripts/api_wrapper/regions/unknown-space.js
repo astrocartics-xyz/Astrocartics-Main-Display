@@ -1,0 +1,38 @@
+// J-Space
+const jSpaceRegionsData = [
+	{"region_id":11000033,"region_name":"K-R00033"},
+	{"region_id":11000001,"region_name":"A-R00001"},
+	{"region_id":11000002,"region_name":"A-R00002"},
+	{"region_id":11000003,"region_name":"A-R00003"},
+	{"region_id":11000004,"region_name":"B-R00004"},
+	{"region_id":11000005,"region_name":"B-R00005"},
+	{"region_id":11000006,"region_name":"B-R00006"},
+	{"region_id":11000007,"region_name":"B-R00007"},
+	{"region_id":11000008,"region_name":"B-R00008"},
+	{"region_id":11000009,"region_name":"C-R00009"},
+	{"region_id":11000010,"region_name":"C-R00010"},
+	{"region_id":11000011,"region_name":"C-R00011"},
+	{"region_id":11000012,"region_name":"C-R00012"},
+	{"region_id":11000013,"region_name":"C-R00013"},
+	{"region_id":11000014,"region_name":"C-R00014"},
+	{"region_id":11000015,"region_name":"C-R00015"},
+	{"region_id":11000016,"region_name":"D-R00016"},
+	{"region_id":11000017,"region_name":"D-R00017"},
+	{"region_id":11000018,"region_name":"D-R00018"},
+	{"region_id":11000019,"region_name":"D-R00019"},
+	{"region_id":11000020,"region_name":"D-R00020"},
+	{"region_id":11000021,"region_name":"D-R00021"},
+	{"region_id":11000022,"region_name":"D-R00022"},
+	{"region_id":11000023,"region_name":"D-R00023"},
+	{"region_id":11000024,"region_name":"E-R00024"},
+	{"region_id":11000025,"region_name":"E-R00025"},
+	{"region_id":11000026,"region_name":"E-R00026"},
+	{"region_id":11000027,"region_name":"E-R00027"},
+	{"region_id":11000028,"region_name":"E-R00028"},
+	{"region_id":11000029,"region_name":"E-R00029"},
+	{"region_id":11000030,"region_name":"F-R00030"},
+	{"region_id":11000031,"region_name":"G-R00031"},
+	{"region_id":11000032,"region_name":"H-R00032"}
+];
+
+export {jSpaceRegionsData};

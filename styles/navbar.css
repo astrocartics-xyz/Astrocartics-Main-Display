@@ -1,0 +1,53 @@
+/* Top Navigation Bar */
+#top-bar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 60px;
+	background: rgba(10, 10, 20, 0.85);
+	backdrop-filter: blur(10px);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 16px;
+	box-sizing: border-box;
+	z-index: 50;
+}
+
+#region-header {
+	color: #fff;
+	font-family: monospace;
+	font-size: 18px;
+	font-weight: bold;
+	text-shadow: 0 0 10px #00ffff;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: center;
+	flex-grow: 1;
+	margin: 0 16px;
+}
+
+.bar-btn {
+	background: transparent;
+	border: none;
+	color: #4fc3f7;
+	padding: 8px;
+	border-radius: 50%;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.2s ease;
+}
+
+.bar-btn:hover {
+	background: rgba(79, 195, 247, 0.1);
+	color: #fff;
+}
+
+.bar-btn:active {
+	transform: scale(0.95);
+}

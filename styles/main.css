@@ -1,0 +1,30 @@
+@import "./loading.css";
+@import "./navbar.css";
+@import "./footer.css";
+@import "./panels/information.css";
+@import "./panels/search.css";
+
+/* General Body and Container Styles */
+body {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	font-family: 'Inter', sans-serif;
+	background: #000;
+	color: #fff;
+	width: 100vw;
+	height: 100vh;
+}
+
+.hidden {
+	display: none !important;
+}
+
+#scene-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}

@@ -1,0 +1,170 @@
+
+
+/* Region heatmap panel fills area between navbar and footer dynamically */
+.region-heatmap-panel {
+	left: 0;
+	right: 0;
+	background: rgba(3, 6, 10, 0.98);
+	color: #fff;
+	/* panel z-index kept below footer which uses 1000 so footer remains visible */
+	z-index: 100;
+	overflow: auto;
+	padding: 28px;
+	box-sizing: border-box;
+	font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+/* Title and header */
+.region-heatmap-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 8px;
+}
+.region-heatmap-title {
+	margin: 0;
+	color: #4fc3f7;
+	font-size: 20px;
+}
+.region-heatmap-controls {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+region-heatmap-close {
+	background: #fff;
+	color: #000;
+	border: none;
+	padding: 8px 12px;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: 600;
+}
+.region-heatmap-sub {
+	opacity: 0.85;
+	margin-bottom: 16px;
+}
+/* graph */
+.region-heatmap-graph {
+	width: 100%;
+	height: 160px;
+	margin-bottom: 12px;
+}
+.region-heatmap-graph canvas {
+	width: 100% !important;
+	height: 100% !important;
+}
+/* table */
+.region-heatmap-table-wrap {
+	width: 100%;
+	overflow-x: auto;
+}
+.region-heatmap-table {
+	width: 100%;
+	border-collapse: collapse;
+	/* allow shrinking on mobile */
+	min-width: 0;
+}
+/* Ensure table headers default to left, then force the Kills column (3rd col) to the right */
+.region-heatmap-table thead th {
+	text-align: left;
+}
+/* If the Kills TH has the numeric class, right-align it */
+.region-heatmap-table thead th.region-heatmap-th--numeric {
+	text-align: right !important;
+}
+/* Fallback: target the 3rd column explicitly (header and body cells) */
+.region-heatmap-table thead th:nth-child(3),
+.region-heatmap-table tbody td:nth-child(3),
+.region-heatmap-table td.region-heatmap-kills {
+	text-align: right !important;
+}
+/* Give the numeric column a fixed-ish width on desktop so it hugs the right side */
+.region-heatmap-table tbody td:nth-child(3),
+.region-heatmap-table thead th:nth-child(3) {
+	width: 120px;
+	white-space: nowrap;
+}
+.region-heatmap-td {
+	padding: 10px 12px;
+	border-bottom: 1px solid rgba(255,255,255,0.03);
+	color: #e6f9ff;
+	word-break: break-word;
+}
+.region-heatmap-kills {
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+/* Responsiveness to mobile: convert rows into stacked grid where Kills stays visible */
+@media (max-width: 720px) {
+	.region-heatmap-panel { padding: 16px; }
+	.region-heatmap-title { font-size: 18px; }
+	/* Make table fit container without requiring horizontal scroll */
+	.region-heatmap-table-wrap {
+		overflow-x: visible;
+	}
+	/* Hide the header row on mobile (we show labels inline instead) */
+	.region-heatmap-table thead {
+		display: none;
+	}
+	/* Make tbody and rows block-level so we can grid each row */
+	.region-heatmap-table tbody,
+	.region-heatmap-table tr {
+		display: block;
+	}
+	/* Each data row becomes a 2-column grid:
+	   - left column: System (row 1) and Constellation (row 2)
+	   - right column: Kills (spanning both rows)
+	*/
+	.region-heatmap-table tr {
+		display: grid;
+		grid-template-columns: 1fr 90px;
+		grid-auto-rows: auto;
+		gap: 8px 12px;
+		padding: 8px 0;
+		border-bottom: 1px solid rgba(255,255,255,0.03);
+	}
+	/* Place first td, i.e. system, in left column, first row */
+	.region-heatmap-table tr td:nth-child(1) {
+		grid-column: 1 / 2;
+		grid-row: 1 / 2;
+		padding: 6px 0;
+		font-weight: 600;
+	}
+	/* Place second td, i.e. constellation, below the System in left column */
+	.region-heatmap-table tr td:nth-child(2) {
+		grid-column: 1 / 2;
+		grid-row: 2 / 3;
+		padding: 2px 0;
+		opacity: 0.9;
+		font-size: 0.95em;
+	}
+	/* Place third td, i.e. kills, in the right column spanning both rows */
+	.region-heatmap-table tr td:nth-child(3) {
+		grid-column: 2 / 3;
+		grid-row: 1 / 3;
+		align-self: center;
+		justify-self: end;
+		padding: 6px 0;
+		white-space: nowrap;
+		font-variant-numeric: tabular-nums;
+	}
+	/* Make sure table cells wrap if content is long */
+	.region-heatmap-table td {
+		white-space: normal;
+	}
+	/* Reduce minimum widths on very small screens */
+	.region-heatmap-table {
+		font-size: 14px;
+	}
+	/* Mobile phone friendly */
+	@media (max-width: 420px) {
+		.region-heatmap-table tr {
+			grid-template-columns: 1fr 70px;
+		}
+		.region-heatmap-table tr td:nth-child(3) {
+			justify-self: end;
+		}
+	}
+}

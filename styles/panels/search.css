@@ -1,0 +1,66 @@
+/* Search Styles */
+.search-panel {
+	position: fixed;
+	top: 65px; /* Below top bar */
+	right: 16px;
+	width: 300px;
+	background: rgba(10, 10, 20, 0.95);
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 12px;
+	padding: 20px;
+	/* Increased z-index so it appears above the heatmap panel (which uses z-index: 100) */
+	z-index: 1100;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Mobile adjustments for Search */
+@media (max-width: 480px) {
+	.search-panel {
+		right: 0;
+		left: 0;
+		width: auto;
+		margin: 0 16px;
+		top: 70px;
+    }
+}
+
+.search-panel h3 {
+	margin: 0;
+	font-size: 1.2em;
+	color: #4fc3f7;
+}
+
+#search-input {
+	width: 100%;
+	padding: 12px;
+	background: rgba(255, 255, 255, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 8px;
+	color: #fff;
+	font-size: 1em;
+	box-sizing: border-box;
+}
+
+#search-input::placeholder {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.primary-btn {
+	padding: 12px;
+	background: #4fc3f7;
+	border: none;
+	border-radius: 8px;
+	color: #000;
+	font-size: 1em;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.primary-btn:hover {
+	background: #64d3ff;
+}

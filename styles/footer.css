@@ -1,0 +1,130 @@
+/* Base footer container */
+#top-regions-footer {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 56px;
+	z-index: 9999;
+	pointer-events: auto;
+	background: rgba(0,0,0,0.6);
+	color: var(--footer-color, #fff);
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	padding: 0 14px;
+	font-family: 'Inter', sans-serif;
+	overflow: hidden;
+}
+/* The outer element that holds the scrolling content — use same id for compatibility */
+#top-regions-list,
+.footer-ticker {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	display: block;
+}
+/* The ticker content that scrolls from right to left once per cycle */
+.ticker-content {
+	display: inline-block;
+	white-space: nowrap;
+	/* start off-screen to the right; animation moves translateX from 0 -> -100% */
+	padding-left: 100%;
+	animation-name: ticker-rtl;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	/* duration is set dynamically via inline style --ticker-duration (JS sets it) */
+	animation-duration: var(--ticker-duration, 20s);
+}
+/* Keyframes: start with content placed at padding-left (off-screen to right) and translate left by 100% */
+@keyframes ticker-rtl {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-100%);
+	}
+}
+/* Pause on hover for usability */
+.ticker-content:hover {
+	animation-play-state: paused;
+}
+/* Label and items included inside the scrolling content */
+.top-region-label {
+	margin-right: 1rem;
+	font-weight: 600;
+	color: var(--label-color, #ddd);
+	white-space:nowrap;
+}
+/* Space between anchor link and rest of ticker content */
+.top-region-label a {
+	margin-right: 400px;      /* adjust px/rem to taste */
+}
+/* Items displayed as simple text; underline when selected */
+.top-region-item {
+	display: inline-block;
+	margin: 0 0.6rem;
+	padding: 6px 0;
+	color: var(--accent-color, #00aaff);
+	cursor: pointer;
+	font-weight: 600;
+	white-space: nowrap;
+	text-decoration: none;
+	transition: color 120ms ease, transform 120ms ease;
+}
+/* Hover */
+.top-region-item:hover {
+	color: color-mix(in srgb, var(--accent-color, #00aaff) 70%, #ffffff);
+	transform: translateY(-1px);
+}
+/* Selected state: underline only */
+.top-region-item.selected {
+	text-decoration: underline;
+}
+/* Focus ring for keyboard users */
+.top-region-item:focus {
+	outline: none;
+	box-shadow: 0 0 0 3px rgba(0,170,255,0.10);
+	border-radius: 4px;
+}
+/* No-data placeholder */
+.top-region-none {
+	opacity: 0.8;
+	padding: 6px 4px;
+}
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+	.ticker-content {
+		animation: none;
+	}
+}
+/* Small screens adjustments */
+@media (max-width: 600px) {
+	/*#top-regions-footer {height: 44px; padding: 0 10px;}
+	.top-region-item {font-size: 13px; margin: 0 0.5rem;}
+	.top-region-label {display: none;}*/
+	#top-regions-footer {
+		height: 44px;
+		padding: 0 10px;
+	}
+	/* Tighter gaps and slightly smaller text */
+	.ticker-content { gap: 0.6rem; }
+	.top-region-item { font-size: 13px; margin: 0 0.5rem; }
+	/* Keep the label visible and compact */
+	.top-region-label {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 13px;
+		white-space: nowrap;
+		flex-shrink: 0;
+	}
+	/* Truncate the link inside the label if necessary */
+	.top-region-label a {
+		display: inline-block;
+		max-width: 40vw;              /* adjust to taste */
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}
