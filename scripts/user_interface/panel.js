@@ -1,7 +1,7 @@
 // Imports
 import {setupFooter} from './footer.js';
 import {setupNavbar} from './navbar.js';
-import {renderRegionKillsGraph} from './graph.js';
+import {renderRegionKillsGraph} from './graph.js'
 // Keep a local store of the latest heatmap and  systems loaded for the region
 let latestHeatmapRaw = null;   // raw payload
 let latestHeatmapBuckets = []; // normalized array of bucket entries
@@ -134,6 +134,17 @@ export function setupUIHandlers() {
 		const activeSystemsCount = buckets.filter(b => Number(b.kills ?? b.value ?? 0) > 0).length;
 		infoLine.textContent = `Past hour activity: ${activeSystemsCount} system${activeSystemsCount === 1 ? '' : 's'}`;
 		panel.appendChild(infoLine);
+		// Graph 
+		const graphWrap = document.createElement('div');
+		graphWrap.className = 'region-heatmap-graph';
+		panel.appendChild(graphWrap);
+		// Check for latest region
+		if (latestRegionId) {
+			renderRegionKillsGraph(graphWrap, latestRegionId);
+			// Render graph into graphWrap
+			console.log("Graph function call render goes here");
+			
+		}
 		// Normalize buckets for lookup: prefer system_id and use `kills` field
 		const killsByKey = {};
 		if (Array.isArray(latestHeatmapBuckets)) {
