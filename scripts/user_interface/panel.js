@@ -140,15 +140,7 @@ export function setupUIHandlers() {
 		title.textContent = latestSystems && latestSystems.length ? (latestSystems[0].region_name || 'Region') : 'Region';
 		header.appendChild(title);
 		panel.appendChild(header);
-		// Subtitle / Information
-		const infoLine = document.createElement('div');
-		infoLine.className = 'region-heatmap-sub';
-		// Count systems with activity, i.e. non-zero kills in the normalized heatmap buckets
-		const buckets = Array.isArray(latestHeatmapBuckets) ? latestHeatmapBuckets : [];
-		const activeSystemsCount = buckets.filter(b => Number(b.kills ?? b.value ?? 0) > 0).length;
-		infoLine.textContent = `Past hour activity: ${activeSystemsCount} system${activeSystemsCount === 1 ? '' : 's'}`;
-		panel.appendChild(infoLine);
-		// Graph 
+				// Graph 
 		const graphWrap = document.createElement('div');
 		graphWrap.className = 'region-heatmap-graph';
 		panel.appendChild(graphWrap);
@@ -159,6 +151,14 @@ export function setupUIHandlers() {
 			console.log("Graph function call render goes here");
 			
 		}
+		// Subtitle / Information
+		const infoLine = document.createElement('div');
+		infoLine.className = 'region-heatmap-sub';
+		// Count systems with activity, i.e. non-zero kills in the normalized heatmap buckets
+		const buckets = Array.isArray(latestHeatmapBuckets) ? latestHeatmapBuckets : [];
+		const activeSystemsCount = buckets.filter(b => Number(b.kills ?? b.value ?? 0) > 0).length;
+		infoLine.textContent = `Past hour activity: ${activeSystemsCount} system${activeSystemsCount === 1 ? '' : 's'}`;
+		panel.appendChild(infoLine);
 		// Normalize buckets for lookup: prefer system_id and use `kills` field
 		const killsByKey = {};
 		if (Array.isArray(latestHeatmapBuckets)) {

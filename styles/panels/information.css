@@ -29,7 +29,6 @@
 	gap: 8px;
 	align-items: center;
 }
-
 region-heatmap-close {
 	background: #fff;
 	color: #000;
@@ -46,7 +45,7 @@ region-heatmap-close {
 /* graph */
 .region-heatmap-graph {
 	width: 100%;
-	height: 160px;
+	height: 450px;
 	margin-bottom: 12px;
 }
 .region-heatmap-graph canvas {

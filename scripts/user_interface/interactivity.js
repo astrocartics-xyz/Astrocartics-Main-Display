@@ -149,7 +149,6 @@ export function setupInteractionHandlers(camera, scene, systems, heatmapRaw, pre
 		const picked = getPickedObject(event);
 		// Nothing picked, return
 		if (!picked) {
-			removeCurrentLabel();
 			return;
 		}
 		// Check picked object for system
