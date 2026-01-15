@@ -32,7 +32,7 @@ export function setupUIHandlers() {
 	const navbar = setupNavbar();
 	const searchToggleBtn = navbar.searchBtn;
 	const infoBtn = navbar.infoBtn;
-
+	// Top panel search
 	const searchPanel = document.getElementById('search-panel');
 	const closeSearchBtn = document.getElementById('close-search-btn');
 	const searchBtn = document.getElementById('search-btn');
@@ -64,6 +64,19 @@ export function setupUIHandlers() {
 			}
 		});
 	}
+	// Close info panel when a new search/region is requested or loaded
+	function closeRegionPanelIfOpen() {
+		const existing = document.getElementById('region-heatmap-panel');
+		if (existing) {
+			existing.remove();
+		}
+	}
+	// Remove panel if user initiates a search
+	window.addEventListener('uiSearch', closeRegionPanelIfOpen);
+	// Remove panel if a region is clicked in the footer
+	window.addEventListener('regionClick', closeRegionPanelIfOpen);
+	// Remove panel when new data is loaded by user
+	window.addEventListener('regionHeatmapLoaded', closeRegionPanelIfOpen);
 	// Populate footer
 	setupFooter();
 	// Run search during click on button
@@ -91,6 +104,7 @@ export function setupUIHandlers() {
 		}
 		window.dispatchEvent(new CustomEvent('uiSearch', {detail: {term: text}}));
 	}
+
 	// Create and open the panel that fills area between navbar and footer
 	function openRegionHeatmapPanel() {
 		const existing = document.getElementById('region-heatmap-panel');

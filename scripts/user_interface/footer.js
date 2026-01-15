@@ -62,8 +62,8 @@ export async function setupFooter() {
 				all.forEach(a => a.classList.remove('selected'));
 				item.classList.add('selected');
 				// Dispatch events
-				window.dispatchEvent(new CustomEvent('regionClick', { detail: { region_name: name } }));
-				window.dispatchEvent(new CustomEvent('uiSearch', { detail: { term: name } }));
+				window.dispatchEvent(new CustomEvent('regionClick', {detail: {region_name: name}}));
+				window.dispatchEvent(new CustomEvent('uiSearch', {detail: {term: name}}));
 			});
 			// Keyboard
 			item.addEventListener('keydown', (ev) => {

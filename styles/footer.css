@@ -58,7 +58,7 @@
 }
 /* Space between anchor link and rest of ticker content */
 .top-region-label a {
-	margin-right: 400px;      /* adjust px/rem to taste */
+	margin-right: 400px;
 }
 /* Items displayed as simple text; underline when selected */
 .top-region-item {
@@ -100,9 +100,6 @@
 }
 /* Small screens adjustments */
 @media (max-width: 600px) {
-	/*#top-regions-footer {height: 44px; padding: 0 10px;}
-	.top-region-item {font-size: 13px; margin: 0 0.5rem;}
-	.top-region-label {display: none;}*/
 	#top-regions-footer {
 		height: 44px;
 		padding: 0 10px;
@@ -122,7 +119,7 @@
 	/* Truncate the link inside the label if necessary */
 	.top-region-label a {
 		display: inline-block;
-		max-width: 40vw;              /* adjust to taste */
+		max-width: 40vw;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;

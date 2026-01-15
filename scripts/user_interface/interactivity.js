@@ -2,7 +2,6 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.156.1/build/three.module.js';
 import {normalizeHeatmap, buildKillsById} from './heatmap_parser.js';
 // Exports for User Interface interactions
-// Note: accepts optional precomputedKillsById to avoid re-normalizing if main provides it.
 export function setupInteractionHandlers(camera, scene, systems, heatmapRaw, precomputedKillsById = null) {
 	const raycaster = new THREE.Raycaster();
 	const mouse = new THREE.Vector2();
@@ -54,14 +53,16 @@ export function setupInteractionHandlers(camera, scene, systems, heatmapRaw, pre
 		const material = new THREE.SpriteMaterial({ map: texture, depthTest: false });
 		const sprite = new THREE.Sprite(material);
 		// store the pixel dimensions for later resizing
-		sprite.userData._textPixelSize = { width: canvas.width, height: canvas.height };
+		sprite.userData._textPixelSize = {width: canvas.width, height: canvas.height};
 		// default scale (caller will set proper world scale)
 		sprite.scale.set(1, 1, 1);
 		return sprite;
 	}
 	// Resize a sprite so it appears approximately pixelHeight pixels tall on screen.
 	function resizeSpriteToPixels(sprite, cameraRef, pixelHeight = 64) {
-		if (!sprite || !sprite.material || !sprite.userData || !sprite.userData._textPixelSize) return;
+		if (!sprite || !sprite.material || !sprite.userData || !sprite.userData._textPixelSize) {
+			return;
+		}
 		// world position and distance
 		const spriteWorldPos = new THREE.Vector3();
 		sprite.getWorldPosition(spriteWorldPos);
@@ -131,6 +132,7 @@ export function setupInteractionHandlers(camera, scene, systems, heatmapRaw, pre
 		const picked = getPickedObject(event);
 		// Nothing picked, return
 		if (!picked) {
+			removeCurrentLabel();
 			return;
 		}
 		// If picked region, external gate to next region
@@ -147,6 +149,7 @@ export function setupInteractionHandlers(camera, scene, systems, heatmapRaw, pre
 		const picked = getPickedObject(event);
 		// Nothing picked, return
 		if (!picked) {
+			removeCurrentLabel();
 			return;
 		}
 		// Check picked object for system
