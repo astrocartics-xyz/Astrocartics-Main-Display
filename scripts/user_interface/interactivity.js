@@ -18,6 +18,7 @@ export function setupInteractionHandlers(camera, scene, systems, heatmapRaw, pre
 	// Click events
 	window.addEventListener('dblclick', handleDoubleClick);
 	window.addEventListener('click', handleGlobalClick);
+	//window.addEventListener('touchstart', handleTouch);
 	// Create a text sprite from a string. Caller should call resizeSpriteToPixels() after adding to scene.
 	function createTextSprite(text, options = {}) {
 		const fontSize = options.fontSize || 64;

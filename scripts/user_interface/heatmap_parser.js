@@ -14,8 +14,17 @@ export function normalizeHeatmap(raw) {
 	}
 	return [];
 }
+// Export picking function
+export function pick(obj, ...props) {
+	for (const p of props) {
+		if(obj[p] !== undefined && obj[p] !== null) {
+			return obj[p];
+		}
+	}
+	return null;
+}
 // Builds a simple lookup where keys are either numeric ids or system name strings.
-// Useful for quick lookup by id or name: lookup[id] => kills, lookup[name] => kills
+// lookup[id] => kills, lookup[name] => kills
 export function buildKillsById(buckets) {
 	const lookup = {};
 	if (!Array.isArray(buckets)) {
@@ -44,9 +53,9 @@ export function buildKillsByKey(buckets) {
 	// Buckets
 	buckets.forEach(entry => {
 		// ID, NAME, KILLS
-		const id = entry.system_id ?? entry.id ?? entry.systemId ?? null;
-		const name = entry.system_name ?? entry.name ?? null;
-		const kills = Number(entry.kills ?? entry.count ?? entry.kills ?? 0);
+		const id = pick(entry, 'system_id', 'id', 'systemId');
+		const name = pick(entry, 'system_name', 'name');
+		const kills = Number(pick(entry, 'kills', 'count') || 0);
 		if (id !== null && id !== undefined) {
 			lookup[`id:${id}`] = kills;
 		} else if (name) {

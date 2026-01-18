@@ -2,6 +2,7 @@
 import {setupFooter} from './footer.js';
 import {setupNavbar} from './navbar.js';
 import {renderRegionKillsGraph} from './graph.js'
+import {normalizeHeatmap} from './heatmap_parser.js'
 // Keep a local store of the latest heatmap and  systems loaded for the region
 let latestHeatmapRaw = null;   // raw payload
 let latestHeatmapBuckets = []; // normalized array of bucket entries
@@ -13,18 +14,7 @@ window.addEventListener('regionHeatmapLoaded', (e) => {
 	latestSystems = Array.isArray(e?.detail?.systems) ? e.detail.systems : [];
 	// Normalize heatmap payload into an array of "bucket" entries
 	latestHeatmapRaw = e?.detail?.heatmap ?? null;
-	if (Array.isArray(latestHeatmapRaw)) {
-		latestHeatmapBuckets = latestHeatmapRaw;
-	} else if (latestHeatmapRaw && Array.isArray(latestHeatmapRaw.buckets)) {
-		latestHeatmapBuckets = latestHeatmapRaw.buckets;
-	} else if (latestHeatmapRaw && typeof latestHeatmapRaw === 'object') {
-		//map id->value, convert to array of objects
-		latestHeatmapBuckets = Object.keys(latestHeatmapRaw).map(k => {
-			return {system_id: Number(k), kills: Number(latestHeatmapRaw[k] ?? 0)};
-		});
-	} else {
-		latestHeatmapBuckets = [];
-	}
+	latestHeatmapBuckets = normalizeHeatmap(latestHeatmapRaw);
 });
 // Export all functions for user interface
 export function setupUIHandlers() {
@@ -91,8 +81,7 @@ export function setupUIHandlers() {
 			}
 		});
 	}
-	// Auxiliary functions
-	// -------------------
+	// Running the search
 	function runSearch() {
 		const text = searchInput ? searchInput.value.trim() : '';
 		if (!text) {
@@ -104,7 +93,6 @@ export function setupUIHandlers() {
 		}
 		window.dispatchEvent(new CustomEvent('uiSearch', {detail: {term: text}}));
 	}
-
 	// Create and open the panel that fills area between navbar and footer
 	function openRegionHeatmapPanel() {
 		const existing = document.getElementById('region-heatmap-panel');
@@ -115,22 +103,12 @@ export function setupUIHandlers() {
 		panel.id = 'region-heatmap-panel';
 		panel.className = 'region-heatmap-panel';
 		// Compute offsets to avoid covering navbar and footer
-		const topBar = document.getElementById('top-bar');
+		const navbar = document.getElementById('top-bar');
 		const footer = document.getElementById('top-regions-footer');
-		const topOffset = topBar ? topBar.offsetHeight : 60;
-		const bottomOffset = footer ? footer.offsetHeight : 56;
-		// Assign styling
-		Object.assign(panel.style, {
-			position: 'fixed',
-			top: `${topOffset}px`,
-			left: '0',
-			right: '0',
-			bottom: `${bottomOffset}px`,
-			zIndex: '100',
-			overflow: 'auto',
-			padding: '28px',
-			boxSizing: 'border-box'
-		});
+		const topOffset = navbar ? navbar.offsetHeight : 0;
+		const bottomOffset = footer ? footer.offsetHeight : 0;
+		panel.style.top = `${topOffset}px`;
+		panel.style.bottom = `${bottomOffset}px`;
 		// Header
 		const header = document.createElement('div');
 		header.className = 'region-heatmap-header';
@@ -140,16 +118,13 @@ export function setupUIHandlers() {
 		title.textContent = latestSystems && latestSystems.length ? (latestSystems[0].region_name || 'Region') : 'Region';
 		header.appendChild(title);
 		panel.appendChild(header);
-				// Graph 
+		// Graph
 		const graphWrap = document.createElement('div');
 		graphWrap.className = 'region-heatmap-graph';
 		panel.appendChild(graphWrap);
 		// Check for latest region
 		if (latestRegionId) {
 			renderRegionKillsGraph(graphWrap, latestRegionId);
-			// Render graph into graphWrap
-			console.log("Graph function call render goes here");
-			
 		}
 		// Subtitle / Information
 		const infoLine = document.createElement('div');

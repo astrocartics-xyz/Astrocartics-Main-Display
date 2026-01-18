@@ -1,7 +1,10 @@
 /* Region heatmap panel fills area between navbar and footer dynamically */
 .region-heatmap-panel {
+	position: fixed;
+	top: 0;
 	left: 0;
 	right: 0;
+	bottom: 0;
 	background: rgba(3, 6, 10, 0.98);
 	color: #fff;
 	/* panel z-index kept below footer which uses 1000 so footer remains visible */

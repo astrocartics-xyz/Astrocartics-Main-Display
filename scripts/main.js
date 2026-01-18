@@ -51,6 +51,9 @@ export async function startVisualization(mode, params = null) {
 		const heatmapBuckets = normalizeHeatmap(heatmap);
 		const killsById = buildKillsById(heatmapBuckets);   // for interactivity (id/name => kills)
 		const killsByKey = buildKillsByKey(heatmapBuckets); // for panel (id:<id> / name:<name>)
+		//console.log(heatmapBuckets);
+		//console.log(killsById);
+		//console.log(killsByKey);
 		// Notify any UI modules that need heatmap data (panel.js listens to this event)
 		window.dispatchEvent(new CustomEvent('regionHeatmapLoaded', {
 			detail: {regionId, heatmap, systems, heatmapBuckets, killsById, killsByKey}
@@ -61,7 +64,7 @@ export async function startVisualization(mode, params = null) {
 		ui.header.textContent = systems[0].region_name;
 		// Build scene in display
 		updateLoadingText('Building Region View.');
-		currentScene = setupScene(systems, allStargates);
+		currentScene = setupScene(systems, allStargates, killsById);
 		// After scene load, allow user interactivity (pass heatmap so we don't fetch per selection)
 		setupInteractionHandlers(currentScene.camera, currentScene.scene, systems, heatmap);
 		// Display end results to user

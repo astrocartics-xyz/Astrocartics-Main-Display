@@ -1,7 +1,8 @@
 // Imports
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.156.1/build/three.module.js';
 import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.156.1/examples/jsm/controls/OrbitControls.js';
-import {CAMERA_SETTINGS, REGION_SETTINGS, STAR_COLORS} from './config.js';
+//import {fetchRegionHeatmap} from '../api_wrapper/wrapper.js';
+import {CAMERA_SETTINGS, REGION_SETTINGS, STAR_COLORS, HEATMAP_COLORS, GATE_COLORS} from './config.js';
 //  Color based on class
 function getStarMaterial(spectralClass) {
 	// Default white if none presented
@@ -36,7 +37,7 @@ function createTextSprite(text) {
 	context.fillText(text, canvas.width / 2, canvas.height / 2);
 	// Canvas constants
 	const texture = new THREE.CanvasTexture(canvas);
-	const material = new THREE.SpriteMaterial({ map: texture });
+	const material = new THREE.SpriteMaterial({map: texture});
 	const sprite = new THREE.Sprite(material);
 	// Scale sprite to be visible in scene
 	sprite.scale.set(62, 32, 4);
@@ -80,7 +81,7 @@ function normalizeCoordinates(systems) {
 	return {scaledSystems, scalePoint};
 }
 // Scene setup for export
-export function setupScene(systemData, stargateData) {
+export function setupScene(systemData, stargateData, heatmapData = {}) {
 	// Get container for scene
 	const container = document.getElementById('scene-container');
 	// Clear scene container
@@ -144,7 +145,33 @@ export function setupScene(systemData, stargateData) {
 		star.userData = system;
 		scene.add(star);
 		systemLookup.set(system.system_id, star);
-		// Add a slightly larger invisible hit mesh for easier clicking.
+		// Glow for kills on map
+		const killCount = heatmapData[system.system_id] || 0;
+		if (killCount > 0) {
+			const maxGlow = 0.55, minGlow = 0.16, maxKills = 20;
+			const opacity = Math.min(minGlow + (killCount / maxKills) * (maxGlow - minGlow), maxGlow);
+			// Color coding
+			function colorForKills(count) {
+				const pct = Math.min(count / maxKills, 1);
+				if (pct < 0.5) {
+					return new THREE.Color().lerpColors(new THREE.Color(HEATMAP_COLORS.BOTTOM_HEAT), new THREE.Color(HEATMAP_COLORS.MID_HEAT), pct * 2);
+				} else {
+					return new THREE.Color().lerpColors(new THREE.Color(HEATMAP_COLORS.MID_HEAT), new THREE.Color(HEATMAP_COLORS.TOP_HEAT), (pct - 0.5) * 2);
+				}
+			}
+			// Glow meshing
+			const glowMaterial = new THREE.MeshBasicMaterial({
+				color: colorForKills(killCount),
+				transparent: true,
+				opacity,
+				depthWrite: false,
+			});
+			const glowGeometry = new THREE.SphereGeometry(REGION_SETTINGS.STAR_SIZE * REGION_SETTINGS.GLOW_FACTOR, 16, 16);
+			const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+			glow.position.copy(star.position);
+			scene.add(glow);
+		}
+		// Slightly larger invisible hit mesh for easier clicking.
 		const hitMesh = new THREE.Mesh(pickGeometry, pickMaterial);
 		hitMesh.position.copy(system.scaledPosition);
 		hitMesh.userData = system; // same metadata
@@ -214,7 +241,7 @@ export function setupScene(systemData, stargateData) {
 		if (internalLinePoints.length > 0) {
 			const internalGeometry = new THREE.BufferGeometry().setFromPoints(internalLinePoints);
 			const internalMaterial = new THREE.LineBasicMaterial({
-				color: 0x444488,
+				color: GATE_COLORS.INTERNAL_GATE,
 				opacity: REGION_SETTINGS.GATE_OPACITY,
 				transparent: true,
 				blending: THREE.AdditiveBlending
@@ -225,8 +252,8 @@ export function setupScene(systemData, stargateData) {
 		if (externalLinePoints.length > 0) {
 			const externalGeometry = new THREE.BufferGeometry().setFromPoints(externalLinePoints);
 			const externalMaterial = new THREE.LineBasicMaterial({
-				color: 0xFFA500, // Orange color for regional gates
-				opacity: 0.8, // Slightly more opaque
+				color: GATE_COLORS.EXTERNAL_GATE, // Orange color for regional gates
+				opacity: REGION_SETTINGS.GATE_OPACITY, // Slightly more opaque
 				transparent: true,
 				blending: THREE.AdditiveBlending
 			});
