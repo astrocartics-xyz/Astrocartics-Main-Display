@@ -118,14 +118,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	window.addEventListener('regionClick', (e) => {
 		const name = e?.detail?.region_name;
 		if (name) {
-			startVisualization('search', { term: name });
+			startVisualization('search', {term: name});
 		}
 	});
 	// Listen for uiSearch events and call startVisualization
 	window.addEventListener('uiSearch', (e) => {
 		const term = e?.detail?.term;
 		if (term) {
-			startVisualization('search', { term });
+			startVisualization('search', {term});
 		}
 	});
 	// Random region upon start.

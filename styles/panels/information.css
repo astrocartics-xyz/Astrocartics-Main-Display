@@ -49,7 +49,7 @@ region-heatmap-close {
 .region-heatmap-graph {
 	width: 100%;
 	height: 450px;
-	margin-bottom: 12px;
+	margin-bottom: 14px;
 }
 .region-heatmap-graph canvas {
 	width: 100% !important;
