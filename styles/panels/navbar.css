@@ -26,8 +26,15 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	text-align: center;
+	/*align-items: center;*/
 	flex-grow: 1;
-	margin: 0 16px;
+	margin: 0 8px;
+}
+
+.region-header-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
 }
 
 .bar-btn {
@@ -41,6 +48,7 @@
 	align-items: center;
 	justify-content: center;
 	transition: all 0.2s ease;
+	vertical-align: middle;
 }
 
 .bar-btn:hover {

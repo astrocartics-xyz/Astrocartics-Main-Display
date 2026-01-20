@@ -66,18 +66,43 @@ region-heatmap-close {
 	/* allow shrinking on mobile */
 	min-width: 0;
 }
-/* Ensure table headers default to left, then force the Kills column (3rd col) to the right */
+/* Ensure table headers default to left, then force the Kills column to the right */
 .region-heatmap-table thead th {
 	text-align: left;
+	color: #8fdcf7; 
+	background: none;
+	font-weight: 600;
+	font-size: 1em;
+	padding: 5px 12px;
+	border-bottom: 2px solid #222;
 }
-/* If the Kills TH has the numeric class, right-align it */
+/* color of kills */
+.region-heatmap-table thead th:nth-child(3) {
+	text-align: right;
+}
+.region-heatmap-table td,
+.region-heatmap-table th {
+        padding: 5px 12px;
+        font-size: 1em;
+}
+/* If the Kills th has the numeric class, right-align it */
 .region-heatmap-table thead th.region-heatmap-th--numeric {
 	text-align: right !important;
 }
-/* Fallback: target the 3rd column explicitly (header and body cells) */
+/* target 3rd column explicitly */
+.region-heatmap-table td.region-heatmap-kills,
+.region-heatmap-table tbody td:nth-child(3) {
+	font-variant-numeric: tabular-nums;
+	font-weight: 500;
+	text-align: right !important;
+	color: #ffd700;
+}
+/* fall, target the 3rd column explicitly */
 .region-heatmap-table thead th:nth-child(3),
 .region-heatmap-table tbody td:nth-child(3),
 .region-heatmap-table td.region-heatmap-kills {
+	font-variant-numeric: tabular-nums;
+	font-weight: 500;
 	text-align: right !important;
 }
 /* Give the numeric column a fixed-ish width on desktop so it hugs the right side */
@@ -88,7 +113,7 @@ region-heatmap-close {
 }
 .region-heatmap-td {
 	padding: 10px 12px;
-	border-bottom: 1px solid rgba(255,255,255,0.03);
+	border-bottom: 1px solid #333;
 	color: #e6f9ff;
 	word-break: break-word;
 }
@@ -98,13 +123,13 @@ region-heatmap-close {
 }
 /* Responsiveness to mobile: convert rows into stacked grid where Kills stays visible */
 @media (max-width: 720px) {
-	.region-heatmap-panel { padding: 16px; }
-	.region-heatmap-title { font-size: 18px; }
+	.region-heatmap-panel {padding: 16px;}
+	.region-heatmap-title {font-size: 18px;}
 	/* Make table fit container without requiring horizontal scroll */
 	.region-heatmap-table-wrap {
 		overflow-x: visible;
 	}
-	/* Hide the header row on mobile (we show labels inline instead) */
+	/* Hide the header row on mobile  */
 	.region-heatmap-table thead {
 		display: none;
 	}

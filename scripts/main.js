@@ -2,8 +2,8 @@
 import {loadRandomRegionSystems, fetchSystemsBySearch, fetchRegionHeatmap} from './api_wrapper/wrapper.js';
 import {setupScene} from './camera/scene.js';
 import {setupInteractionHandlers} from './user_interface/interactivity.js';
-import {setupUIHandlers} from './user_interface/panel.js';
-import {normalizeHeatmap, buildKillsById, buildKillsByKey} from './user_interface/heatmap_parser.js';
+import {setupUIHandlers} from './user_interface/panels/panel.js';
+import {normalizeHeatmap, buildKillsById, buildKillsByKey} from './user_interface/panels/heatmap.js';
 // Grouping of DOM elements.
 const ui = {
 	header: document.getElementById('region-header'),
@@ -51,9 +51,6 @@ export async function startVisualization(mode, params = null) {
 		const heatmapBuckets = normalizeHeatmap(heatmap);
 		const killsById = buildKillsById(heatmapBuckets);   // for interactivity (id/name => kills)
 		const killsByKey = buildKillsByKey(heatmapBuckets); // for panel (id:<id> / name:<name>)
-		//console.log(heatmapBuckets);
-		//console.log(killsById);
-		//console.log(killsByKey);
 		// Notify any UI modules that need heatmap data (panel.js listens to this event)
 		window.dispatchEvent(new CustomEvent('regionHeatmapLoaded', {
 			detail: {regionId, heatmap, systems, heatmapBuckets, killsById, killsByKey}

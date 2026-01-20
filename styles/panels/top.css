@@ -1,0 +1,97 @@
+/* Top panels */
+.top-info-panel {
+	position: fixed;
+	left: 0;
+	right: 0;
+	background: rgba(3, 6, 10, 0.98);
+	color: #fff;
+	z-index: 100;
+	padding: 32px 16px;
+	box-sizing: border-box;
+	font-family: Inter, system-ui, -apple-system, "Segoe UI", Arial;
+	overflow-y: auto;
+}
+/* Header */
+.top-info-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 18px;
+}
+/* Panel Title */
+.top-info-title {
+	background: #fff;
+	color: #000;
+	border: none;
+	font-size: 2em;
+	padding: 0 12px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+/* Section container for the three top tables */
+.top-info-section {
+	display: flex;
+	gap: 2rem;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+/* Individual table block */
+.top-list-wrap {
+	flex: 1;
+	min-width: 220px;
+}
+
+/* Table heading */
+.top-list-wrap h3 {
+	margin-bottom: 8px;
+	color: #8fdcf7;
+	font-size: 1.1em;
+	font-weight: 600;
+}
+/* Table style */
+.top-list-wrap table {
+	width: 100%;
+	color: #fff;
+	border-collapse: collapse;
+	margin-bottom: 24px;
+	border: none;
+}
+/* Table header row */
+.top-list-wrap th {
+	color: #8fdcf7;
+	background: none;
+	text-align: left;
+	padding: 5px 12px;
+	font-size: 1em;
+	border-bottom: 2px solid #222;
+}
+/* Table data cell */
+.top-list-wrap td {
+	padding: 5px 12px;
+	font-size: 1em;
+	border-bottom: 1px solid #333;
+}
+/* Last column, right align kills */
+.top-list-wrap th:last-child,
+.top-list-wrap td:last-child {
+	text-align: right;
+}
+/* emphasize Kills column */
+.top-list-wrap td:last-child {
+	font-variant-numeric: tabular-nums;
+	font-weight: 500;
+	color: #ffd700;
+}
+/* Mobile friendly */
+@media (max-width: 900px) {
+	.top-info-section {
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+	.top-list-wrap {
+		min-width: 0;
+	}
+}
+

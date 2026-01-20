@@ -1,5 +1,5 @@
 // Imports
-import {fetchRegionSummary} from '../api_wrapper/wrapper.js';
+import {fetchRegionSummary} from '../../api_wrapper/wrapper.js';
 import * as uiCHART from 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/auto/+esm';
 // Exports
 export async function renderRegionKillsGraph(container, regionId) {

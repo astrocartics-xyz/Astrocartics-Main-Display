@@ -1,6 +1,6 @@
 // Imports
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.156.1/build/three.module.js';
-import {normalizeHeatmap, buildKillsById} from './heatmap_parser.js';
+import {normalizeHeatmap, buildKillsById} from './panels/heatmap.js';
 // Exports for User Interface interactions
 export function setupInteractionHandlers(camera, scene, systems, heatmapRaw, precomputedKillsById = null) {
 	const raycaster = new THREE.Raycaster();

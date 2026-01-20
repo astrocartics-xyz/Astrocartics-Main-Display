@@ -145,7 +145,11 @@ export function setupScene(systemData, stargateData, heatmapData = {}) {
 		star.userData = system;
 		scene.add(star);
 		systemLookup.set(system.system_id, star);
-		// Glow for kills on map
+		// Create glow halo
+		if (!scene.userData.glowHalows) {
+			scene.userData.glowHalows = [];
+		}
+		// Glow based on kill amount
 		const killCount = heatmapData[system.system_id] || 0;
 		if (killCount > 0) {
 			const maxGlow = 0.55, minGlow = 0.16, maxKills = 20;
@@ -168,7 +172,11 @@ export function setupScene(systemData, stargateData, heatmapData = {}) {
 			});
 			const glowGeometry = new THREE.SphereGeometry(REGION_SETTINGS.STAR_SIZE * REGION_SETTINGS.GLOW_FACTOR, 16, 16);
 			const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+			// Get halo started
 			glow.position.copy(star.position);
+			glow.userData.baseScaling = glow.scale.clone();
+			scene.userData.glowHalows.push(glow);
+			// Put scene together
 			scene.add(glow);
 		}
 		// Slightly larger invisible hit mesh for easier clicking.
@@ -282,6 +290,15 @@ export function setupScene(systemData, stargateData, heatmapData = {}) {
 	const animate = () => {
 		animationId = requestAnimationFrame(animate);
 		controls.update();
+		// Animating halo effect for heatmap
+		const time = performance.now() * 0.002;
+		// Glow halow
+		if (scene.userData.glowHalows && scene.userData.glowHalows.length) {
+			scene.userData.glowHalows.forEach((halo, i) => {
+				const oscillation = 0.15 * Math.sin(time + 1) + 1;
+				halo.scale.set(oscillation, oscillation, oscillation);
+			});
+		}
 		renderer.render(scene, camera);
 	};
 	// Start animation

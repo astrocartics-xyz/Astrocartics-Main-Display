@@ -1,5 +1,5 @@
 // Imports
-import {fetchTopRegions} from '../api_wrapper/wrapper.js';
+import {fetchTopRegions} from '../../api_wrapper/wrapper.js';
 // Must populate top regions footer and listen for click event
 export async function setupFooter() {
 	// Listing external link

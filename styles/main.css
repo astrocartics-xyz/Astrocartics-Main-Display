@@ -1,9 +1,10 @@
+/* Imports */
 @import "./loading.css";
-@import "./navbar.css";
-@import "./footer.css";
-@import "./panels/information.css";
+@import "./panels/navbar.css";
+@import "./panels/footer.css";
+@import "./panels/heatmap.css";
 @import "./panels/search.css";
-
+@import "./panels/top.css";
 /* General Body and Container Styles */
 body {
 	margin: 0;

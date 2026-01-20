@@ -258,6 +258,14 @@ export function fetchSystemSummary(systemId) {
 export function fetchTopRegions() {
 	return api.getTopRegions();
 }
+// Export top constellations
+export function fetchTopConstellations() {
+	return api.getTopConstellations();
+}
+// Export top systems
+export function fetchTopSystems(){
+	return api.getTopSystems();
+}
 // Export getting random regions
 export function getRandomRegion() {
 	// Combine both lists into one pool
