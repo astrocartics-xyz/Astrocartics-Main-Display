@@ -60,7 +60,7 @@ class AstroApi {
 	}
 	// Top Constellations
 	async getTopConstellations() {
-		return this.fetch(`/rankings/constellations/top?hour=hour`);
+		return this.fetch(`/rankings/constellations/top?mode=hour`);
 	}
 	// System Summary
 	async getSystemSummaryForId(systemId) {
