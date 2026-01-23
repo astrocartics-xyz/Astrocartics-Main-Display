@@ -28,7 +28,6 @@
 	border-radius: 50%;
 	cursor: pointer;
 }
-
 /* Section container for the three top tables */
 .top-info-section {
 	display: flex;
@@ -36,13 +35,11 @@
 	justify-content: space-around;
 	flex-wrap: wrap;
 }
-
 /* Individual table block */
 .top-list-wrap {
 	flex: 1;
 	min-width: 220px;
 }
-
 /* Table heading */
 .top-list-wrap h3 {
 	margin-bottom: 8px;
@@ -78,7 +75,7 @@
 .top-list-wrap td:last-child {
 	text-align: right;
 }
-/* emphasize Kills column */
+/* Emphasize Kills column */
 .top-list-wrap td:last-child {
 	font-variant-numeric: tabular-nums;
 	font-weight: 500;

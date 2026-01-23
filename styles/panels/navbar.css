@@ -15,7 +15,7 @@
 	box-sizing: border-box;
 	z-index: 100;
 }
-
+/* Header */
 #region-header {
 	color: #fff;
 	font-family: monospace;
@@ -26,17 +26,15 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	text-align: center;
-	/*align-items: center;*/
 	flex-grow: 1;
 	margin: 0 8px;
 }
-
 .region-header-row {
 	display: flex;
 	align-items: center;
 	gap: 8px;
 }
-
+/* Button styling */
 .bar-btn {
 	background: transparent;
 	border: none;
@@ -50,12 +48,12 @@
 	transition: all 0.2s ease;
 	vertical-align: middle;
 }
-
+/* Hover coloring */
 .bar-btn:hover {
 	background: rgba(79, 195, 247, 0.1);
 	color: #fff;
 }
-
+/* Active button selection */
 .bar-btn:active {
 	transform: scale(0.95);
 }

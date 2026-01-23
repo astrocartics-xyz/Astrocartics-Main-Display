@@ -9,31 +9,20 @@
 	border: 1px solid rgba(255, 255, 255, 0.1);
 	border-radius: 12px;
 	padding: 20px;
-	/* Increased z-index so it appears above the heatmap panel (which uses z-index: 100) */
+	/* Increased z-index so it appears above the heatmap panel */
 	z-index: 1100;
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
-
-/* Mobile adjustments for Search */
-@media (max-width: 480px) {
-	.search-panel {
-		right: 0;
-		left: 0;
-		width: auto;
-		margin: 0 16px;
-		top: 70px;
-    }
-}
-
+/* Header */
 .search-panel h3 {
 	margin: 0;
 	font-size: 1.2em;
 	color: #4fc3f7;
 }
-
+/* Input bar */
 #search-input {
 	width: 100%;
 	padding: 12px;
@@ -44,11 +33,11 @@
 	font-size: 1em;
 	box-sizing: border-box;
 }
-
+/* Placeholder */
 #search-input::placeholder {
 	color: rgba(255, 255, 255, 0.5);
 }
-
+/* Search button */
 .primary-btn {
 	padding: 12px;
 	background: #4fc3f7;
@@ -60,7 +49,18 @@
 	cursor: pointer;
 	transition: background-color 0.3s ease;
 }
-
+/* Hover coloring */
 .primary-btn:hover {
 	background: #64d3ff;
 }
+/* Mobile friendliness for Search */
+@media (max-width: 480px) {
+	.search-panel {
+		right: 0;
+		left: 0;
+		width: auto;
+		margin: 0 16px;
+		top: 70px;
+	}
+}
+
