@@ -65,13 +65,6 @@ export async function setupFooter() {
 				window.dispatchEvent(new CustomEvent('regionClick', {detail: {region_name: name}}));
 				window.dispatchEvent(new CustomEvent('uiSearch', {detail: {term: name}}));
 			});
-			// Keyboard
-			item.addEventListener('keydown', (ev) => {
-				if (ev.key === 'Enter' || ev.key === ' ') {
-					ev.preventDefault();
-					item.click();
-				}
-			});
 			content.appendChild(item);
 		});
 		// Compute animation duration

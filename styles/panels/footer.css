@@ -41,9 +41,9 @@
 	0%   {transform: translateX(0);}
 	100% {transform: translateX(-100%);}
 }
-/* Pause animation on hover */
+/* Slows animation on hover */
 .ticker-content:hover {
-	animation-play-state: paused;
+	animation-play-state: 40s !important;
 }
 /* Label and items inside ticker */
 .top-region-label {

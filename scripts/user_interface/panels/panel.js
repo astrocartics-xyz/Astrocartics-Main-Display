@@ -78,12 +78,18 @@ export function setupUIHandlers() {
 			}
 		});
 	}
-	// Remove panel if user initiates a search
-	window.addEventListener('uiSearch', closeRegionPanel);
+	// Remove panel if user initiates a search hideSearchPanel()
+	window.addEventListener('uiSearch', () => {
+		closeRegionPanel();
+		closeTopPanel();
+		hideSearchPanel();
+	});
 	// Remove panel if a region is clicked in the footer
-	window.addEventListener('regionClick', closeRegionPanel);
-	// Remove panel when new data is loaded by user
-	//window.addEventListener('regionHeatmapLoaded', closeRegionPanel);
+	window.addEventListener('regionClick', () => {
+		closeRegionPanel();
+		closeTopPanel();
+		hideSearchPanel();
+	});
 	// Populate footer
 	setupFooter();
 	// Running the search

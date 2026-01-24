@@ -16,9 +16,23 @@ export function setupInteractionHandlers(camera, scene, systems, heatmapRaw, pre
 	scene.userData = scene.userData || {};
 	scene.userData.labels = scene.userData.labels || [];
 	// Click events
+	// Mobile/Tablet
+	let lastTap = 0;
+	window.addEventListener("touchstart", function(event) {
+		const currentTime = Date.now();
+		const tapLength = currentTime - lastTap;
+		// Double tap, otherwise
+		if (tapLength < 300 && tapLength > 0) {
+			handleDoubleClick(event);
+			tapLength = 0;
+		} else {
+			handleGlobalClick(event);
+		}
+		lastTap = currentTime;
+	}, {passive:false});
+	// Desktop/Laptop
 	window.addEventListener('dblclick', handleDoubleClick);
 	window.addEventListener('click', handleGlobalClick);
-	//window.addEventListener('touchstart', handleTouch);
 	// Create a text sprite from a string. Caller should call resizeSpriteToPixels() after adding to scene.
 	function createTextSprite(text, options = {}) {
 		const fontSize = options.fontSize || 64;
